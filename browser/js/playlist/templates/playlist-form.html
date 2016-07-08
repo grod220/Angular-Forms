@@ -1,16 +1,19 @@
 <div class="well">
-  <form class="form-horizontal" ng-submit="newSubmit()">
+  <form name="newListForm" class="form-horizontal" ng-submit="newSubmit()">
     <fieldset>
       <legend>New Playlist</legend>
       <div class="form-group">
         <label class="col-xs-2 control-label">Name</label>
         <div class="col-xs-10">
-          <input class="form-control" type="text" ng-model="newName.name">
+          <input name="newName" class="form-control" type="text" ng-model="newName.name" ng-required="true" ng-maxlength="16">
+          <div ng-show="newListForm.newName.$dirty && newListForm.newName.$error.required" class="alert alert-warning">Please enter a name</div>
+          <div ng-show="newListForm.newName.$error.maxlength" class="alert alert-warning">Playlist names must be no more than 16 characters; memory is expensive.</div>
+          <h1>{{newListForm.newName}}</h1>
         </div>
       </div>
       <div class="form-group">
         <div class="col-xs-10 col-xs-offset-2">
-          <button type="submit" class="btn btn-success">Create Playlist</button>
+          <button type="submit" class="btn btn-success" ng-disabled="newListForm.$invalid">Create Playlist</button>
         </div>
       </div>
     </fieldset>
